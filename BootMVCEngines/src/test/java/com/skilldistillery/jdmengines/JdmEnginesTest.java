@@ -117,7 +117,6 @@ class JdmEnginesTest {
 		updatedJdmEngine.setCylinders(6);
 		updatedJdmEngine.setPower(250);
 		updatedJdmEngine.setUnit("hp");
-		
 
 		em.getTransaction().begin();
 		JdmEngines result = jdmenginesdao.update(engineId, updatedJdmEngine);
@@ -130,7 +129,6 @@ class JdmEnginesTest {
 		assertEquals(250, result.getPower());
 		assertEquals("hp", result.getUnit());
 
-		
 		JdmEngines verifiedEngine = em.find(JdmEngines.class, engineId);
 		assertEquals("Updated engine", verifiedEngine.getName());
 		assertEquals(2500, verifiedEngine.getSize());
@@ -138,6 +136,5 @@ class JdmEnginesTest {
 		assertEquals(250, verifiedEngine.getPower());
 		assertEquals("hp", verifiedEngine.getUnit());
 	}
-    
-    
+
 }
