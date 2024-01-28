@@ -64,4 +64,31 @@ public class JdmEnginesDAOImpl implements JdmEnginesDAO {
 		}
 	}
 
+	public JdmEngines update(int id, JdmEngines updatedJdmEngine) {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Engines");
+		EntityManager em = emf.createEntityManager();
+		try {
+			em.getTransaction().begin();
+
+			JdmEngines managed = em.find(JdmEngines.class, id);
+			if (managed != null) {
+
+				managed.setName(updatedJdmEngine.getName());
+				managed.setSize(updatedJdmEngine.getSize());
+				managed.setCylinders(updatedJdmEngine.getCylinders());
+				managed.setPower(updatedJdmEngine.getPower());
+				managed.setUnit(updatedJdmEngine.getUnit());
+
+				em.getTransaction().commit();
+			}
+
+			return managed;
+		} finally {
+			if (em.getTransaction().isActive()) {
+				em.getTransaction().rollback();
+			}
+			em.close();
+		}
+	}
+
 }

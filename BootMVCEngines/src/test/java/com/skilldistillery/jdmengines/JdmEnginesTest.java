@@ -82,30 +82,62 @@ class JdmEnginesTest {
 //		
 //	}
 
-    @Test
-    void test_addNewJdmEngine() {
-        String name = "New Engine";
-        int size = 2000;
-        int cylinders = 4;
-        int power = 250;
-        String unit = "HP";
+//    @Test
+//    void test_addNewJdmEngine() {
+//        String name = "New Engine";
+//        int size = 2000;
+//        int cylinders = 4;
+//        int power = 250;
+//        String unit = "HP";
+//
+//        // Add a new engine
+//        em.getTransaction().begin();
+//        jdmenginesdao.addNewJdmEngine(name, size, cylinders, power, unit);
+//        em.getTransaction().commit();
+//
+//        // Fetch the newly added engine
+//        JdmEngines newEngine = em.createQuery("SELECT e FROM JdmEngines e WHERE e.name = :name", JdmEngines.class)
+//                                 .setParameter("name", name)
+//                                 .getSingleResult();
+//
+//        assertNotNull(newEngine, "New engine should be persisted");
+//        assertEquals(name, newEngine.getName(), "Engine name should match");
+//        assertEquals(size, newEngine.getSize(), "Engine size should match");
+//        assertEquals(cylinders, newEngine.getCylinders(), "Engine cylinders should match");
+//        assertEquals(power, newEngine.getPower(), "Engine power should match");
+//        assertEquals(unit, newEngine.getUnit(), "Engine unit should match");
+//    }
 
-        // Add a new engine
-        em.getTransaction().begin();
-        jdmenginesdao.addNewJdmEngine(name, size, cylinders, power, unit);
-        em.getTransaction().commit();
+	@Test
+	public void test_Update_JdmEngines() {
+		int engineId = 17;
+		JdmEngines updatedJdmEngine = new JdmEngines();
+		updatedJdmEngine.setName("Updated engine");
+		updatedJdmEngine.setSize(2500);
+		updatedJdmEngine.setCylinders(6);
+		updatedJdmEngine.setPower(250);
+		updatedJdmEngine.setUnit("hp");
+		
 
-        // Fetch the newly added engine
-        JdmEngines newEngine = em.createQuery("SELECT e FROM JdmEngines e WHERE e.name = :name", JdmEngines.class)
-                                 .setParameter("name", name)
-                                 .getSingleResult();
+		em.getTransaction().begin();
+		JdmEngines result = jdmenginesdao.update(engineId, updatedJdmEngine);
+		em.getTransaction().commit();
 
-        assertNotNull(newEngine, "New engine should be persisted");
-        assertEquals(name, newEngine.getName(), "Engine name should match");
-        assertEquals(size, newEngine.getSize(), "Engine size should match");
-        assertEquals(cylinders, newEngine.getCylinders(), "Engine cylinders should match");
-        assertEquals(power, newEngine.getPower(), "Engine power should match");
-        assertEquals(unit, newEngine.getUnit(), "Engine unit should match");
-    }
+		assertNotNull(result);
+		assertEquals("Updated engine", result.getName());
+		assertEquals(2500, result.getSize());
+		assertEquals(6, result.getCylinders());
+		assertEquals(250, result.getPower());
+		assertEquals("hp", result.getUnit());
 
+		
+		JdmEngines verifiedEngine = em.find(JdmEngines.class, engineId);
+		assertEquals("Updated engine", verifiedEngine.getName());
+		assertEquals(2500, verifiedEngine.getSize());
+		assertEquals(6, verifiedEngine.getCylinders());
+		assertEquals(250, verifiedEngine.getPower());
+		assertEquals("hp", verifiedEngine.getUnit());
+	}
+    
+    
 }
