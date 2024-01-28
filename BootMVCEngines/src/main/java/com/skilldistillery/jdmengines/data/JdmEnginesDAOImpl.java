@@ -35,7 +35,7 @@ public class JdmEnginesDAOImpl implements JdmEnginesDAO {
 
 		em.getTransaction().commit();
 
-		return em.find(Address.class, id) == null;
+		return em.find(JdmEngines.class, id) == null;
 	}
 
 	public void addNewJdmEngine(String name, int size, int cylinders, int power, String unit) {

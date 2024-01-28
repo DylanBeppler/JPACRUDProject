@@ -31,8 +31,7 @@ class JdmEnginesTest {
 	private static EntityManager em;
 	private static JdmEngines JdmEngines;
 	private static JdmEnginesDAOImpl jdmenginesdao;
-	
-	
+
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
 		emf = Persistence.createEntityManagerFactory("Engines");
@@ -63,28 +62,26 @@ class JdmEnginesTest {
 
 	}
 
-	
-//	 @Test
-//	    void test_delete_JdmEngine() {
-//	        // Create a test engine to be deleted
-//	        JdmEngines testEngine = new JdmEngines();
-//	        testEngine.setName("Test Engine");
-//	        // Set other properties as needed
+//	@Test
+//	void test_delete_JdmEngine() {
 //
-//	        em.getTransaction().begin();
-//	        em.persist(testEngine);
-//	        em.getTransaction().commit();
+//		int engineIdToDelete = 16;
 //
-//	        // Delete the engine
-//	        em.getTransaction().begin();
-//	        boolean deleteResult = jdmenginesdao.deleteJdmEngine(testEngine.getId());
-//	        em.getTransaction().commit();
+//		JdmEngines engineToDelete = em.find(JdmEngines.class, engineIdToDelete);
+//		assertNotNull(engineToDelete, "Engine should exist before deletion");
 //
-//	        assertNull(em.find(JdmEngines.class, testEngine.getId()), "Engine should be deleted");
-//	        assertTrue(deleteResult, "deleteJdmEngine should return true");
-//	    }
-	
-	
+//		
+//		em.getTransaction().begin();
+//		boolean deleteResult = jdmenginesdao.deleteJdmEngine(engineIdToDelete);
+//		em.getTransaction().commit();
+//
+//		em.clear();
+//
+//		JdmEngines deletedEngine = em.find(JdmEngines.class, engineIdToDelete);
+//		assertNull(deletedEngine, "Engine should be deleted");
+//		
+//	}
+
     @Test
     void test_addNewJdmEngine() {
         String name = "New Engine";
@@ -111,6 +108,4 @@ class JdmEnginesTest {
         assertEquals(unit, newEngine.getUnit(), "Engine unit should match");
     }
 
-
 }
-
