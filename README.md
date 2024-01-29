@@ -1,5 +1,5 @@
 
-<img src="https://s1.cdn.autoevolution.com/images/news/nissan-rb26dett-the-skyline-gt-rs-legendary-turbocharged-inline-six-177520_1.jpg" height='500px' width='800'>
+<img src="https://s1.cdn.autoevolution.com/images/news/nissan-rb26dett-the-skyline-gt-rs-legendary-turbocharged-inline-six-177520_1.jpg">
 
 # <h1>JPACRUDProject</h1>
 
