@@ -38,13 +38,15 @@ public class JdmEnginesDAOImpl implements JdmEnginesDAO {
 		return em.find(JdmEngines.class, id) == null;
 	}
 
-	public void addNewJdmEngine(String name, int size, int cylinders, int power, String unit) {
+	public void addNewJdmEngine(int id, String name, int size, int cylinders, int power, String unit) {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Engines");
 		EntityManager em = emf.createEntityManager();
 
 		try {
 			JdmEngines jdmengine = new JdmEngines();
 			em.getTransaction().begin();
+			
+			jdmengine.setId(id);
 			jdmengine.setName(name);
 			jdmengine.setSize(size);
 			jdmengine.setCylinders(cylinders);

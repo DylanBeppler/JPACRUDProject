@@ -22,18 +22,35 @@ public class JdmEnginesController {
 		return "index";
 	}
 
-    @GetMapping("getJdmEngines.do")
-    public String getEngineDetails(@RequestParam("Id") int engineId, Model model) {
-        JdmEngines engine = jdmDAO.findById(engineId); 
-        model.addAttribute("engine", engine);
-        return "displayEngines"; 
+	@GetMapping("getJdmEngines.do")
+	public String getEngineDetails(@RequestParam("Id") int engineId, Model model) {
+		JdmEngines engine = jdmDAO.findById(engineId);
+		model.addAttribute("engine", engine);
+		return "displayEngines";
+	}
+
+	@PostMapping("updateEngine.do")
+	public String updateEngine(@ModelAttribute JdmEngines updatedEngine, Model model) {
+		JdmEngines engine = jdmDAO.update(updatedEngine.getId(), updatedEngine);
+		model.addAttribute("engine", engine);
+		return "updateEngine";
+	}
+
+    @PostMapping("addEngine.do")
+    public String addEngine(@ModelAttribute JdmEngines newEngine, Model model) {
+        jdmDAO.addNewJdmEngine(newEngine.getId(), newEngine.getName(), newEngine.getSize(), newEngine.getCylinders(), newEngine.getPower(), newEngine.getUnit());
+        model.addAttribute("engine", newEngine);
+        return "newEngine"; 
     }
 
-    @PostMapping("updateEngine.do")
-    public String updateEngine(@ModelAttribute JdmEngines updatedEngine, Model model) {
-        JdmEngines engine = jdmDAO.update(updatedEngine.getId(), updatedEngine);
-        model.addAttribute("engine", engine);
-        return "updateEngine"; 
+
+    @GetMapping("deleteEngine.do")
+    public String deleteEngine(@RequestParam("id") int engineId, Model model) {
+        boolean isDeleted = jdmDAO.deleteJdmEngine(engineId);
+        model.addAttribute("isDeleted", isDeleted);
+        model.addAttribute("engineId", engineId);
+        return "deleteEngine"; 
     }
-    
+
+
 }

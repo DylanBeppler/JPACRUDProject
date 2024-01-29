@@ -13,6 +13,13 @@
 	  Engine Id: <input type="text" name="Id" />
 	  <input type="submit" value="Show Engines" /><br>
 	</form>
+	 	<h2>Delete engine by id:</h2>
+	<form action="deleteEngine.do" method="GET">
+	  Engine Id: <input type="number" name="id" />
+	  <input type="submit" value="Delete Engine" /><br>
+	</form>
+	 
+	 
 	 <h2>Update Engine:</h2>
 	 <form action="updateEngine.do" method="POST">
 	 Engine Id: <input type="number" name="id" required/><br>
@@ -24,14 +31,14 @@
 	<input type="submit" value="Update Engine"/>
 	</form>
 	<br>
-	 <h2>Create New Engine:</h2>
-	 <form action="createNewEngine.do" method="POST">
+	 <h2>Add New Engine:</h2>
+	 <form action="addEngine.do" method="POST">
 	 Engine Name: <input type="text" name="name" required/><br>
 	 Engine Size: <input type="number" name="size" required/><br>
 	 Number of Cylinders: <input type="number" name="cylinders" required/><br>
 	 Engine Power: <input type="number" name="power" required/><br>
 	 Engine Unit of Power: <input type="text" name="unit" required/><br>
-	<input type="submit" value="Update Engine"/>
+	<input type="submit" value="Add Engine"/>
 	</form>
 	
 	<br>
