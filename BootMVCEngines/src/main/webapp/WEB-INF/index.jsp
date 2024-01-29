@@ -11,7 +11,7 @@
 	<h2>Search engine by id:</h2>
 	<form action="getJdmEngines.do" method="GET">
 	  Engine Id: <input type="text" name="Id" />
-	  <input type="submit" value="Show Engines" /><br>
+	  <input type="submit" value="Show Engine" /><br>
 	</form>
 	 	<h2>Delete engine by id:</h2>
 	<form action="deleteEngine.do" method="GET">
@@ -19,7 +19,10 @@
 	  <input type="submit" value="Delete Engine" /><br>
 	</form>
 	 
-	 
+	 <h2>Display All Engines</h2>
+	 <form action="displayAllEngines.do" method="GET">
+	 <input type="submit" value="Display Engines" />
+	</form><br>
 	 <h2>Update Engine:</h2>
 	 <form action="updateEngine.do" method="POST">
 	 Engine Id: <input type="number" name="id" required/><br>
@@ -43,7 +46,7 @@
 	
 	<br>
 	
-
+  
 	
 </body>
 </html>

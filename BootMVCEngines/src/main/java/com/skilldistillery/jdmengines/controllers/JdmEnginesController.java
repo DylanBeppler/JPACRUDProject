@@ -1,5 +1,7 @@
 package com.skilldistillery.jdmengines.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,7 +19,7 @@ public class JdmEnginesController {
 	@Autowired
 	private JdmEnginesDAO jdmDAO;
 
-	@RequestMapping({ "", "/", "home.do" })
+	@GetMapping({ "", "/", "home.do" })
 	public String index(Model model) {
 		return "index";
 	}
@@ -38,8 +40,8 @@ public class JdmEnginesController {
 
     @PostMapping("addEngine.do")
     public String addEngine(@ModelAttribute JdmEngines newEngine, Model model) {
-        jdmDAO.addNewJdmEngine(newEngine.getId(), newEngine.getName(), newEngine.getSize(), newEngine.getCylinders(), newEngine.getPower(), newEngine.getUnit());
-        model.addAttribute("engine", newEngine);
+         JdmEngines managedEngine = jdmDAO.addNewJdmEngine(newEngine.getId(), newEngine.getName(), newEngine.getSize(), newEngine.getCylinders(), newEngine.getPower(), newEngine.getUnit());
+        model.addAttribute("engine", managedEngine);
         return "newEngine"; 
     }
 
@@ -51,6 +53,12 @@ public class JdmEnginesController {
         model.addAttribute("engineId", engineId);
         return "deleteEngine"; 
     }
-
+    
+    @GetMapping("displayAllEngines.do")
+    public String listAllEngines(Model model) {
+        List<JdmEngines> engines = jdmDAO.findAll();
+        model.addAttribute("engines", engines);
+        return "displayAllEngines"; 
+    }
 
 }

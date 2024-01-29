@@ -7,6 +7,7 @@
 <title>New Engine</title>
 </head>
 <body>
+<a href="home.do">Home</a>
 <h2>New Engine Created:</h2>
 <h3>
 Engine id: ${engine.id}<br>

@@ -1,6 +1,7 @@
 package com.skilldistillery.jdmengines.data;
 
-import org.springframework.boot.autoconfigure.amqp.RabbitConnectionDetails.Address;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.skilldistillery.jdmengines.entities.JdmEngines;
@@ -25,72 +26,48 @@ public class JdmEnginesDAOImpl implements JdmEnginesDAO {
 	}
 
 	public boolean deleteJdmEngine(int id) {
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Engines");
-		EntityManager em = emf.createEntityManager();
-		em.getTransaction().begin();
+
 		JdmEngines jdmengine = em.find(JdmEngines.class, id);
 		em.remove(jdmengine);
-
-		em.flush();
-
-		em.getTransaction().commit();
 
 		return em.find(JdmEngines.class, id) == null;
 	}
 
-	public void addNewJdmEngine(int id, String name, int size, int cylinders, int power, String unit) {
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Engines");
-		EntityManager em = emf.createEntityManager();
+	public JdmEngines addNewJdmEngine(int id, String name, int size, int cylinders, int power, String unit) {
 
-		try {
-			JdmEngines jdmengine = new JdmEngines();
-			em.getTransaction().begin();
-			
-			jdmengine.setId(id);
-			jdmengine.setName(name);
-			jdmengine.setSize(size);
-			jdmengine.setCylinders(cylinders);
-			jdmengine.setPower(power);
-			jdmengine.setUnit(unit);
+		JdmEngines jdmengine = new JdmEngines();
 
-			em.persist(jdmengine);
+		jdmengine.setId(id);
+		jdmengine.setName(name);
+		jdmengine.setSize(size);
+		jdmengine.setCylinders(cylinders);
+		jdmengine.setPower(power);
+		jdmengine.setUnit(unit);
 
-			em.getTransaction().commit();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			em.getTransaction().rollback();
-		} finally {
-			em.close();
-			emf.close();
-		}
+		em.persist(jdmengine);
+		return jdmengine;
 	}
 
 	public JdmEngines update(int id, JdmEngines updatedJdmEngine) {
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Engines");
-		EntityManager em = emf.createEntityManager();
-		try {
-			em.getTransaction().begin();
 
-			JdmEngines managed = em.find(JdmEngines.class, id);
-			if (managed != null) {
+		JdmEngines managed = em.find(JdmEngines.class, id);
+		if (managed != null) {
 
-				managed.setName(updatedJdmEngine.getName());
-				managed.setSize(updatedJdmEngine.getSize());
-				managed.setCylinders(updatedJdmEngine.getCylinders());
-				managed.setPower(updatedJdmEngine.getPower());
-				managed.setUnit(updatedJdmEngine.getUnit());
+			managed.setName(updatedJdmEngine.getName());
+			managed.setSize(updatedJdmEngine.getSize());
+			managed.setCylinders(updatedJdmEngine.getCylinders());
+			managed.setPower(updatedJdmEngine.getPower());
+			managed.setUnit(updatedJdmEngine.getUnit());
 
-				em.getTransaction().commit();
-			}
-
-			return managed;
-		} finally {
-			if (em.getTransaction().isActive()) {
-				em.getTransaction().rollback();
-			}
-			em.close();
 		}
+
+		return managed;
+
 	}
 
+	public List<JdmEngines> findAll() {
+		String jpql = "SELECT e FROM JdmEngines e";
+		List<JdmEngines> engines = em.createQuery(jpql, JdmEngines.class).getResultList();
+		return engines;
+	}
 }
