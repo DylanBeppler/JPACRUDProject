@@ -110,9 +110,9 @@ class JdmEnginesTest {
 
 	@Test
 	public void test_Update_JdmEngines() {
-		int engineId = 17;
+		int engineId = 4;
 		JdmEngines updatedJdmEngine = new JdmEngines();
-		updatedJdmEngine.setName("Updated engine");
+		updatedJdmEngine.setName("rb25det");
 		updatedJdmEngine.setSize(2500);
 		updatedJdmEngine.setCylinders(6);
 		updatedJdmEngine.setPower(250);
@@ -123,14 +123,14 @@ class JdmEnginesTest {
 		em.getTransaction().commit();
 
 		assertNotNull(result);
-		assertEquals("Updated engine", result.getName());
+		assertEquals("rb25det", result.getName());
 		assertEquals(2500, result.getSize());
 		assertEquals(6, result.getCylinders());
 		assertEquals(250, result.getPower());
 		assertEquals("hp", result.getUnit());
-
+		em.clear();
 		JdmEngines verifiedEngine = em.find(JdmEngines.class, engineId);
-		assertEquals("Updated engine", verifiedEngine.getName());
+		assertEquals("rb25det", verifiedEngine.getName());
 		assertEquals(2500, verifiedEngine.getSize());
 		assertEquals(6, verifiedEngine.getCylinders());
 		assertEquals(250, verifiedEngine.getPower());

@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -26,5 +28,12 @@ public class JdmEnginesController {
         model.addAttribute("engine", engine);
         return "displayEngines"; 
     }
-	
+
+    @PostMapping("updateEngine.do")
+    public String updateEngine(@ModelAttribute JdmEngines updatedEngine, Model model) {
+        JdmEngines engine = jdmDAO.update(updatedEngine.getId(), updatedEngine);
+        model.addAttribute("engine", engine);
+        return "updateEngine"; 
+    }
+    
 }
